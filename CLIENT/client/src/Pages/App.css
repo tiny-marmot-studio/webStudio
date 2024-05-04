@@ -1,0 +1,29 @@
+html, body, #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Full-screen background */
+.bg {
+    position: relative; /* Needed to position the hexagon absolutely within it */
+    width: 100%; /* Cover the full width */
+    height: 100vh; /* Cover the full viewport height */
+    background-image: url("./Images/background.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* Hexagon styles */
+.hexagon {
+    position: absolute; /* Position relative to nearest positioned ancestor */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust the position to truly center based on its own size */
+    width: 200px; /* Set the width of the hexagon */
+    height: 200px; /* Set the height of the hexagon */
+    background-color: #333; /* Hexagon color */
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); /* Hexagon shape */
+    z-index: 10; /* Ensure it's above the background */
+}
