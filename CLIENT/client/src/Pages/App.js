@@ -4,12 +4,9 @@ import "./App.css";
 function App() {
     return (
         <Fragment>
-            <div className="bg">
-                {/* Background goes here */}
-            </div>
-            <div className="hexagon">
-                {/* Hexagon goes here */}
-            </div>
+            <div className="bg"/>
+            <div className="hexagon"/>
+
         </Fragment>
     );
 }
