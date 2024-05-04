@@ -5,25 +5,58 @@ html, body, #root {
 }
 
 /* Full-screen background */
-.bg {
+.background {
     position: relative; /* Needed to position the hexagon absolutely within it */
     width: 100%; /* Cover the full width */
     height: 100vh; /* Cover the full viewport height */
-    background-image: url("./Images/background.png");
+    background-image: url("./Images/background_intro.png");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
-
-/* Hexagon styles */
-.hexagon {
-    position: absolute; /* Position relative to nearest positioned ancestor */
-    top: 50%; /* Center vertically */
-    left: 50%; /* Center horizontally */
-    transform: translate(-50%, -50%); /* Adjust the position to truly center based on its own size */
-    width: 200px; /* Set the width of the hexagon */
-    height: 200px; /* Set the height of the hexagon */
-    background-color: #333; /* Hexagon color */
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); /* Hexagon shape */
-    z-index: 10; /* Ensure it's above the background */
+.logo_frame{
+    display: block;
+    height: 250px; /* Fixed height */
+    width: 250px;  /* Fixed width */
+    margin-left: auto;
+    margin-right: auto;
 }
+.explore_button{
+    margin-left: auto;
+    margin-right: auto;
+    border: 3px #C2D111;
+    padding: 3px 3px;
+    font-size: 16px;
+}
+
+.explore-button{
+    background-color: #C2D111;
+    border-color: #C2D111;
+    color: #C2D111;
+    font-style: italic;
+    font-weight: 150; /* 100 is typically the numeric value for 'thin' */
+    border-width: 1px;
+    cursor: pointer;
+    transition: 0.5s;
+    padding-left: 15px;
+    padding-right:15px;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    margin-left: 633px;
+    margin-right: auto;
+    margin-top: 250px;
+    background-color: transparent;
+    
+}
+.explore-button:focus{
+    outline: none; /* Removes default focus outline */
+    border-color: #C2D111; /* Keeps the border color consistent */
+}
+.explore-button:hover{
+    padding-right:25px;
+    padding-left:25px;
+    margin-left:40px;
+    margin-right:40px;
+
+}
+
