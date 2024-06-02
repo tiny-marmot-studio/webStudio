@@ -30,7 +30,10 @@ const HomePage = () => {
                 </div>
             </div>
             <div className='middle-panel'>
-                    
+                <img src = "/assets/Logo.png" alt=''></img>
+                    <canvas>
+                        {/* HERE IS CANVAS!!!!!!!! */}
+                    </canvas>
             </div>
             <div className='right-panel'>
                 <div className='time-clock'>
@@ -41,7 +44,7 @@ const HomePage = () => {
                 </div>
                 <div className='weather-panel'>
                     <h1>
-                        snowing -5c, 12c
+                    土曜日 snowing -5c, 12c
                     </h1>
                     
                     <div className='divider'/>

@@ -4,7 +4,7 @@
     width: 100vw;
     justify-content: flex-end;
     padding: 40px, 40px;
-    background: linear-gradient(to top left, #FFFFFF 60%, #8D8FA4 40%);
+    background: linear-gradient(to top left, #faf5ef 60%, #8D8FA4 40%);
     min-width: 1532px;
 }
 .login-panel{
@@ -68,6 +68,7 @@ button{
     border-radius: 20px;
     background-color: #b6b9ae83;
     border: none;
+ 
 }
 
 .button-group{
@@ -124,7 +125,8 @@ h3{
     100%{
       opacity:1;
     }
-  }
+
+}
 
 @keyframes rotate {
     0% {
