@@ -16,7 +16,7 @@ const LoginPage = () => {
       <div className='login-panel'>
         <div className='greeting'> 
           <h1>Welcome Jimmy</h1>
-          <h2>ご主人様 </h2>
+          <h2>ご主人様</h2>
         </div>
         <form className='login-form'>
           <input className='username-input'/>
@@ -28,7 +28,7 @@ const LoginPage = () => {
         </form>
 
       </div>
-      <p>今日もやる気まんまんだよ <img className="marmot-logo" src='/assets/Default.png'/></p>
+      <p>今日もやる気まんまんだよ <img className="marmot-logo" src='/assets/Default.png' alt=''/></p>
     </div>
   )
 }

@@ -1,16 +1,159 @@
 .home-page{
-    background-color:#212228;
-
     height: 100vh;
     width: 100vw;
+    display: flex;
+    background: linear-gradient(to top left, #FFFFFF 95%, #75809C 5%);
+    flex-direction: column;
+    gap:10px;
+    min-width: 1532px;
   }
+
+.header{
+  height: 5%;
+
+}
+
+.panel{
+  display: flex;
+
+  justify-content: space-evenly;
+  height: 85%;
+}
+
+.left-panel{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 45%;
+  margin:30px;
+  height: 100%;
+}
+
+.right-panel{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 45%;
+  height: 100%;
+  margin: 30px;
+}
+
+.middle-panel{
+  min-width: 10%;
+}
+
+.time-greeting{
+  display: flex;
+  justify-content: center;
+}
+
+.communicating{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.divider{
+  margin: 0px;
+  height: 1px;
+  width: 100%;
+  border: none; 
+  border-top: 1px solid #586D80; 
+}
+
+
+.time-greeting h1{
+  font-weight: 100;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 35pt;
+  margin: 10px;
+  text-shadow: 10px 10px 10px #9ea6ac;
+}
+
+.communicating h1{
+  font-weight: 500;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 12pt;
+}
+
+.square-point{
+  height: 20px;
+  width: 20px;
+  background-color: #1F2C1C;
+}
+
+.personal-reminder{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin:10px;
+  margin-right: 20px;
+  margin-left: 20px;
+
+}
+
+.working-reminder{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin:10px;
+  margin-right: 20px;
+  margin-left: 20px;
+
+}
+
+.working-reminder h1{
+  font-weight: 500;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 12pt;
+}
+
+.personal-reminder h1{
+  font-weight: 500;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 12pt;
+}
+
+.time-clock{
+  display: flex;
+  justify-content: center;
+}
+
+.time-clock h1{
+  font-family: Arial, 'Times New Roman', Times, serif;
+  font-weight: 500;
+  font-size: 35pt;
+  margin: 5px;
+  text-shadow: 10px 10px 10px #9ea6ac;
+}
+
+.weather-panel{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column
+}
+
+.weather-panel h1{
+  font-weight: 100;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 12pt;
+}
+
+.notification{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin:10px;
+  margin-right: 20px;
+  margin-left: 20px;
+
+}
+
+.notification h1{
+  font-weight: 500;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 12pt;
+}
   
-  
-  #card{
-    width: 100px;
-    height: 100px;
-    background-color: #AFDA9F;
-    border-radius: 5px;
-    cursor: pointer;
-    position: fixed;
-  }
