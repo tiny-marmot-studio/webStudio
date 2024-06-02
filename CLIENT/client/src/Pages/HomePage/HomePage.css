@@ -1,0 +1,16 @@
+.home-page{
+    background-color:#212228;
+
+    height: 100vh;
+    width: 100vw;
+  }
+  
+  
+  #card{
+    width: 100px;
+    height: 100px;
+    background-color: #AFDA9F;
+    border-radius: 5px;
+    cursor: pointer;
+    position: fixed;
+  }

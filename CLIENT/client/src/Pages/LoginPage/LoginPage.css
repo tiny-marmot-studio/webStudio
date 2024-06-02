@@ -5,9 +5,9 @@
     justify-content: flex-end;
     padding: 40px, 40px;
     background: linear-gradient(to top left, #FFFFFF 60%, #8D8FA4 40%);
+
     min-width: 1532px;
 }
-
 .login-panel{
     display: flex;
     flex-direction: column;
@@ -20,8 +20,9 @@
 .greeting{
     display: flex;
     width: 100%;
-    justify-content: center;
+    justify-content: flex-start;
     animation: fadeIn 4s;
+    
 }
 .greeting h1{
     display: inline-block;
@@ -62,22 +63,12 @@
     border:1px, solid, #2a4c65
 }
 
-.demo-button{
+button{
     min-width: 100px;
     min-height: 30px;
     border-radius: 20px;
-    border:1px, solid, #2a4c65;
-    background-color: #FAEEC7;
-
-}
-
-.login-button{
-    min-width: 100px;
-    min-height: 30px;
-    border-radius: 20px;
-    border:1px, solid, #2a4c65;
-    background-color: #FAEEC7;
-
+    background-color: #b6b9ae83;
+    border: none;
 }
 
 .button-group{
@@ -89,9 +80,43 @@
 button:hover{
     cursor: pointer;
     background-color: #FFFFFF;
+    border:1px, solid, #5b6d7a;
+    transition:1s;
     
 }
 
+p {
+    padding: 10px;
+    writing-mode: vertical-lr;
+    animation: fadeIn 5s;
+
+}
+
+h3{
+    padding-top: 100px;
+    font-weight: 500;
+    animation: fadeIn 5s;  
+    font-size: 12pt;
+}
+
+.marmot-logo{
+    width: 30px;
+    height: 30px;
+
+}
+
+.marmot-logo:hover{
+    cursor: pointer;
+    animation: rotate 1s;
+}
+
+.slide-element {
+    display: inline-block;
+    animation: slide 2s linear infinite;
+    font-size: 24px;
+    padding: 20px;
+    border: 1px solid #000;
+}
 
 @keyframes fadeIn {
     0%{
@@ -101,3 +126,18 @@ button:hover{
       opacity:1;
     }
   }
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+     
+    }
+    100% {
+        transform: rotate(360deg);
+    
+    }
+    
+}
+
+
+
