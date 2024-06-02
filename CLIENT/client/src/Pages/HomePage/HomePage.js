@@ -24,16 +24,22 @@ const HomePage = () => {
                     <div className='square-point'/>
                     <h1>今日事宜</h1>
                 </div>
+                <div className='reminder-container'>
+
+                </div>
                 <div className='personal-reminder'>
                     <div className='square-point'/>
                     <h1>个人事宜</h1>
                 </div>
+                <div className='reminder-container'>
+
+                </div>
             </div>
             <div className='middle-panel'>
-                <img src = "/assets/Logo.png" alt=''></img>
-                    <canvas>
-                        {/* HERE IS CANVAS!!!!!!!! */}
-                    </canvas>
+                <img src = "/assets/Logo1.png" alt=''></img>
+                    {/* <canvas>
+              
+                    </canvas> */}
             </div>
             <div className='right-panel'>
                 <div className='time-clock'>
@@ -53,11 +59,17 @@ const HomePage = () => {
                     <div className='square-point'/>
                     <h1>今日信息</h1>
                 </div>
+                <div className='messages-container'>
+
+                </div>
 
             </div>
         </div>
         <div className='footer'>
             Tools Bar
+            <div className='tools-container'>
+
+            </div>
         </div>
     </div>
     )

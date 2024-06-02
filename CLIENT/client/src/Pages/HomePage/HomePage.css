@@ -162,7 +162,33 @@
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 12pt;
 }
-  
+
+.reminder-container{
+  height: 30%;
+  border: 1px solid #72626C;
+  border-radius: 20px;
+
+}
+
+.messages-container{
+  height: 70%;
+  width: 86%;
+  border: 1px solid #72626C;
+  border-radius: 20px;
+
+}
+
+.tools-container{
+  height: 100%;
+  width: 100%;
+  border: 1px solid #72626C;
+  border-radius: 20px;
+
+}
+
+.footer{
+  margin-top: 20px;
+}
 @keyframes fadeIn {
   0%{
     opacity:0;
@@ -180,3 +206,4 @@
     width: 100%;
   }
 }
+
