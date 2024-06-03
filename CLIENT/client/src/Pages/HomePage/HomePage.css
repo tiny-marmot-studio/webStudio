@@ -25,7 +25,7 @@
   flex-direction: column;
   gap: 5px;
   min-width: 45%;
-  margin:30px;
+  margin:10px;
   height: 100%;
   /* animation: fadeIn 3s; */
   animation-delay: 2s; /* Starts after the first element finishes */
@@ -38,7 +38,7 @@
   gap: 5px;
   min-width: 45%;
   height: 100%;
-  margin: 30px;
+  margin: 10px;
   /* animation: fadeIn 3s; */
   animation-delay: 2s; /* Starts after the first element finishes */
 }
@@ -81,6 +81,8 @@
   font-weight: 500;
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 12pt;
+  text-shadow: 10px 10px 10px #9ea6ac;
+
 }
 
 .square-point{
@@ -113,12 +115,16 @@
   font-weight: 500;
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 12pt;
+  text-shadow: 10px 10px 10px #9ea6ac;
+
 }
 
 .personal-reminder h1{
   font-weight: 500;
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 12pt;
+  text-shadow: 10px 10px 10px #9ea6ac;
+
 }
 
 .time-clock{
@@ -145,6 +151,8 @@
   font-weight: 100;
   font-family: Arial, 'Times New Roman', Times, serif;
   font-size: 12pt;
+  text-shadow: 10px 10px 10px #9ea6ac;
+
 }
 
 .notification{
@@ -161,6 +169,8 @@
   font-weight: 500;
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 12pt;
+  text-shadow: 10px 10px 10px #9ea6ac;
+
 }
 
 .reminder-container{
@@ -172,7 +182,7 @@
 
 .messages-container{
   height: 70%;
-  width: 86%;
+  width: 100%;
   border: 1px solid #72626C;
   border-radius: 20px;
 

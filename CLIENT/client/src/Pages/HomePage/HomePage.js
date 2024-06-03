@@ -35,12 +35,12 @@ const HomePage = () => {
 
                 </div>
             </div>
-            <div className='middle-panel'>
+            {/* <div className='middle-panel'>
                 <img src = "/assets/Logo1.png" alt=''></img>
-                    {/* <canvas>
+                    <canvas>
               
-                    </canvas> */}
-            </div>
+                    </canvas>
+            </div> */}
             <div className='right-panel'>
                 <div className='time-clock'>
                     <h1>
