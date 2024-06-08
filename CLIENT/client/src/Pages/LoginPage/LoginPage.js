@@ -1,4 +1,5 @@
 import React from 'react'
+import Live2DComponent from './PixiLive2DComponent';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -26,7 +27,9 @@ const LoginPage = () => {
             <button className='login-button' onClick={()=>{handleClick("/home")}} >log in</button>
           </div>
         </form>
-
+        <div className='canvas'>
+          <Live2DComponent class="model">/</Live2DComponent>
+        </div>
       </div>
       <p>今日もやる気まんまんだよ <img className="marmot-logo" src='/assets/Default.png' alt=''/></p>
     </div>

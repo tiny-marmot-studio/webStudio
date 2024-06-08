@@ -38,6 +38,15 @@
     padding-top: 10%;
 }
 
+.canvas{
+    background-color: transparent;
+    display: flex;
+    width: auto;
+    height: 60%;
+    left: 50ch;
+    animation: fadeIn 4s;
+}
+
 .login-form{
     display: flex;
     flex-direction: column;
