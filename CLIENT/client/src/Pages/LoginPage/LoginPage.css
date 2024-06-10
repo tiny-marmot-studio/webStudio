@@ -21,7 +21,7 @@
     width: 100%;
     justify-content: flex-start;
     animation: fadeIn 4s;
-    
+    z-index: 1;
 }
 .greeting h1{
     display: inline-block;
@@ -38,13 +38,17 @@
     padding-top: 10%;
 }
 
-.canvas{
-    background-color: transparent;
+.canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* behind the input panel */
+}
+
+.model{
     display: flex;
-    width: auto;
-    height: 60%;
-    left: 50ch;
-    animation: fadeIn 4s;
 }
 
 .login-form{
@@ -62,13 +66,15 @@
     height: 20px;
     border-radius: 20px;
     border: 1px, solid,#2a4c65;
+    z-index: 1;
 }
 
 .password-input{
     width:100%;
     height: 20px;
     border-radius: 20px;
-    border:1px, solid, #2a4c65
+    border:1px, solid, #2a4c65;
+    z-index: 1;
 }
 
 button{
@@ -84,6 +90,7 @@ button{
     display: flex;
     justify-content: space-between;
     width: 100%;
+    z-index: 1;
 }
 
 button:hover{

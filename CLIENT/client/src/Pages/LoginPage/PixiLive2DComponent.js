@@ -13,7 +13,7 @@ const Live2DComponent = () => {
         const main = async () => {
             const app = new PIXI.Application({
                 view: document.getElementById("live2d"),
-                backgroundColor: 0xfaf5ef,//0x38dbbd,
+                transparent: true,
                 autoStart: true,
                 resizeTo: window 
             });
