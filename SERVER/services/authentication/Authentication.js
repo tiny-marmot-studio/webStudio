@@ -1,11 +1,11 @@
 const {createHash} = require('crypto');
 const pool = require("../../db");
-// function signup(email, password){
-//     const salt = randomBytes(16).toString('hex');
-//     const hashedPassword = scryptSync(password, salt, 64).toString('hex');
-//     const user = {email: email, password: hashedPassword, salt: salt};
-//     return user;
-// }
+function signup(email, password){
+    const salt = randomBytes(16).toString('hex');
+    const hashedPassword = scryptSync(password, salt, 64).toString('hex');
+    const user = {email: email, password: hashedPassword, salt: salt};
+    return user;
+}
 const newUserRegistration = async (req, res, next) => {
 
 }
