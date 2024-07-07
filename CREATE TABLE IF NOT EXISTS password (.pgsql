@@ -35,3 +35,19 @@
 -- UPDATE logininfo SET pid = 1 WHERE uid = 4;
 -- UPDATE logininfo SET pid = 2 WHERE uid = 5;
 -- UPDATE logininfo SET pid = 3 WHERE uid = 6;
+
+DROP TABLE modelinfo;
+
+CREATE TABLE modelInfo(
+    model_id INTEGER PRIMARY KEY, 
+    users VARCHAR(255),
+    created_time DATE,
+    user_comment VARCHAR(1000)
+)
+
+INSERT INTO modelINFO (model_id, users, created_time, user_comment)
+VALUES (1, 'jll', '2003-08-08', 'new comment');
+
+INSERT INTO modelINFO (model_id, users, created_time, user_comment)
+VALUES (2, 'wei', '2002-01-01', 'wei"s comment');
+
