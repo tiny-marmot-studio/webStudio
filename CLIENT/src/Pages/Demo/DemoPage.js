@@ -6,14 +6,33 @@ import { useGLTF } from "@react-three/drei";
 import "./DemoPage.css";
 
 const $ = require('jquery');
-function handleClick(position, setInfos) {
-  console.log(position);
-  setInfos({
-    user: "jimmy",
-    time: new Date().toLocaleTimeString(), // Example of dynamic time
-    comment: `Clicked at position: ${position}`
-  });
+function handleClick(position, setInfos, model_id) {
+  console.log(model_id);
+  get_model_info(model_id,setInfos);
+  // setInfos({
+  //   user: "jimmy",
+  //   time: new Date().toLocaleTimeString(), // Example of dynamic time
+  //   comment: `Clicked at position: ${position}`
+  // });
 };
+
+function get_model_info(model_id, setInfos) {
+  fetch('http://localhost:5000/modelInfo') // Adjust the URL if needed
+      .then(response => response.json())
+      .then(data => {
+        // Assuming data is an array of objects, you might need to adjust based on actual data structure
+        const mappedData = data.find(item => item.model_id === model_id);
+        if (mappedData) { //if we can find the corresponding data
+          setInfos({
+            user: mappedData.users,
+            time: mappedData.created_time,
+            comment: mappedData.user_comment
+          }); 
+        }
+      }
+      )
+      .catch(error => console.error('Error fetching data:', error));
+}
 
 function add_model_info() {
   const newData = {
@@ -44,19 +63,19 @@ function add_model_info() {
 }
 
 
-const Cube = ({ position, setInfos }) => {
+const Cube = ({ position, setInfos, model_id }) => {
   const { scene } = useGLTF('/Modal/cube.glb');
-  return <primitive object={scene} position={position} onClick={() => handleClick(position, setInfos)} />;
+  return <primitive object={scene} position={position} model_id={model_id} onClick={() => handleClick(position, setInfos, model_id)} />;
 }
 
-const Ball = ({ position, setInfos }) => {
+const Ball = ({ position, setInfos,model_id }) => {
   const { scene } = useGLTF('/Modal/ball.glb');
-  return <primitive object={scene} position={position} onClick={() => handleClick(position, setInfos)}/>;
+  return <primitive object={scene} position={position} model_id={model_id} onClick={() => handleClick(position, setInfos,model_id)}/>;
 }
 
-const Cylinder = ({ position, setInfos }) => {
+const Cylinder = ({ position, setInfos ,model_id}) => {
   const { scene } = useGLTF('/Modal/cylinder.glb');
-  return <primitive object={scene} position={position} onClick={() => handleClick(position, setInfos)} />;
+  return <primitive object={scene} position={position} model_id={model_id} onClick={() => handleClick(position, setInfos,model_id)} />;
 }
 
 const DemoPage = () => {
@@ -69,21 +88,7 @@ const DemoPage = () => {
   });
 
   useEffect(() => {
-    fetch('http://localhost:5000/modelInfo') // Adjust the URL if needed
-      .then(response => response.json())
-      .then(data => {
-        // Assuming data is an array of objects, you might need to adjust based on actual data structure
-        const mappedData = data.find(item => item.model_id === model_id);
-        if (mappedData) { //if we can find the corresponding data
-          setInfos({
-            user: mappedData.users,
-            time: mappedData.created_time,
-            comment: mappedData.user_comment
-          }); 
-        }
-      }
-      )
-      .catch(error => console.error('Error fetching data:', error));
+    get_model_info(model_id,setInfos);
   }, [model_id]);
 
   const addObject = () => {
@@ -98,9 +103,11 @@ const DemoPage = () => {
       Math.random() * 10 - 5  
     ];
 
-    setObjects([...objects, { Component: ObjectType, position: newPosition }]);
+    setObjects([...objects, { Component: ObjectType, position: newPosition, model_id: model_id }]);
     //Update the property of the model to the database and the information blocker
-    add_model_info();
+    if (false){
+      add_model_info();
+    }
     // setInfos({
     //   user: "new_user",
     //   time: new Date().toLocaleTimeString(), // Example of dynamic time
@@ -117,7 +124,7 @@ const DemoPage = () => {
 
         {objects.map((obj, index) => {
           const { Component, position } = obj;
-          return <Component key={index} position={position} setInfos={setInfos} />;
+          return <Component key={index} position={position} setInfos={setInfos} model_id = {model_id}/>;
         })}
         <OrbitControls />
       </Canvas>
