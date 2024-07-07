@@ -5,6 +5,7 @@ import InfoBlock from "./InfoBlock";
 import { useGLTF } from "@react-three/drei";
 import "./DemoPage.css";
 
+const $ = require('jquery');
 function handleClick(position, setInfos) {
   console.log(position);
   setInfos({
@@ -22,21 +23,23 @@ function add_model_info() {
     "user_comment": "jini taimei"
   };
 
-  fetch('http://localhost:5000/modelInfo', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
+  var settings = {
+    "url": "http://localhost:5000/modelInfo",
+    "method": "POST",
+    "timeout": 0,
+    "headers": {
+      "Content-Type": "application/json"
     },
-    body: JSON.stringify(newData),
-  })
-  .then(response => {
+    "data": JSON.stringify({
+      "model_id": 3,
+      "users": "5ege",
+      "created_time": "2000-01-01",
+      "user_comment": "jini taimei"
+    }),
+  };
+  
+  $.ajax(settings).done(function (response) {
     console.log(response);
-    response.json()})
-  .then(data => {
-    console.log('Success:', data);
-  })
-  .catch(error => {
-    console.error('Error adding model info:', error);
   });
 }
 
@@ -98,11 +101,11 @@ const DemoPage = () => {
     setObjects([...objects, { Component: ObjectType, position: newPosition }]);
     //Update the property of the model to the database and the information blocker
     add_model_info();
-    setInfos({
-      user: "new_user",
-      time: new Date().toLocaleTimeString(), // Example of dynamic time
-      comment: `Clicked at position: ${newPosition}`
-    });
+    // setInfos({
+    //   user: "new_user",
+    //   time: new Date().toLocaleTimeString(), // Example of dynamic time
+    //   comment: `Clicked at position: ${newPosition}`
+    // });
   };
 
   return (

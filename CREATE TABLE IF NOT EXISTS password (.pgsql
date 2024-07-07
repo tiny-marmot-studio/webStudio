@@ -43,7 +43,7 @@ CREATE TABLE modelInfo(
     users VARCHAR(255),
     created_time DATE,
     user_comment VARCHAR(1000)
-)
+);
 
 INSERT INTO modelINFO (model_id, users, created_time, user_comment)
 VALUES (1, 'jll', '2003-08-08', 'new comment');
