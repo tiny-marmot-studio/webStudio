@@ -6,6 +6,7 @@ import { useGLTF } from "@react-three/drei";
 import "./DemoPage.css";
 
 const $ = require('jquery');
+let modelID;
 
 // Cache for GLTF objects
 const gltfCache = new Map();
@@ -41,7 +42,7 @@ function get_model_info(model_id, setInfos) {
     .catch(error => console.error('Error fetching data:', error, "from getting model information"));
 }
 
-function get_random_model_id(callback) {
+function get_next_model_id(callback) {
   $.getJSON("http://localhost:5000/modelInfo?queryOption=max-value")
     .done(function(json) {
       const model_id = parseInt(json[0].model_id);
@@ -54,9 +55,9 @@ function get_random_model_id(callback) {
 }
 
 function add_model_info(position, setInfos) {
-  get_random_model_id(function(err, model_id) {
+  get_next_model_id(function(err, model_id) {
     if (err) {
-      console.log("Error fetching random model ID:", err);
+      console.log("Error fetching next model ID:", err);
       return;
     }
     const user = `New user ${model_id}`;
@@ -145,14 +146,22 @@ const DemoPage = () => {
       Math.random() * 10 - 5
     ];
 
-    const newModelID = objects.length + 1; // Ensure uniqueness
-
-    const newObject = { Component: ObjectType, position: newPosition, model_id: newModelID };
-
-    setObjects([...objects, newObject]); // Directly update the state
-    console.log('Updated Objects:', [...objects, newObject]);
-
-    add_model_info(newPosition, setInfos);
+    get_next_model_id(function(err, model_id) {
+      if (err) {
+        console.log("Error fetching next model ID:", err);
+        return;
+      }
+      modelID = model_id;
+      const newModelID = model_id; // Ensure uniqueness
+      console.log("ID is:", newModelID);
+      const newObject = { Component: ObjectType, position: newPosition, model_id: newModelID };
+  
+      setObjects([...objects, newObject]); // Directly update the state
+      console.log('Updated Objects:', [...objects, newObject]);
+  
+      add_model_info(newPosition, setInfos);  
+    });
+      console.log("MODELID:",modelID);
   };
 
   useEffect(() => {
