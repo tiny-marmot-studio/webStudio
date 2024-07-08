@@ -6,7 +6,6 @@ import { useGLTF } from "@react-three/drei";
 import "./DemoPage.css";
 
 const $ = require('jquery');
-let modelID;
 
 // Cache for GLTF objects
 const gltfCache = new Map();
@@ -42,24 +41,28 @@ function get_model_info(model_id, setInfos) {
     .catch(error => console.error('Error fetching data:', error, "from getting model information"));
 }
 
-function get_next_model_id(callback) {
-  $.getJSON("http://localhost:5000/modelInfo?queryOption=max-value")
-    .done(function(json) {
-      const model_id = parseInt(json[0].model_id);
-      callback(null, model_id);
-    })
-    .fail(function(jqxhr, textStatus, error) {
-      var err = textStatus + ", " + error;
-      callback(err);
-    });
+function get_next_model_id() {
+  return new Promise((resolve, reject) => {
+    $.getJSON("http://localhost:5000/modelInfo?queryOption=max-value")
+      .done(function(json) {
+        const model_id = parseInt(json[0].model_id);
+        resolve(model_id);
+      })
+      .fail(function(jqxhr, textStatus, error) {
+        var err = textStatus + ", " + error;
+        reject(err);
+      });
+  });
 }
 
-function add_model_info(position, setInfos) {
-  get_next_model_id(function(err, model_id) {
-    if (err) {
-      console.log("Error fetching next model ID:", err);
-      return;
-    }
+async function add_model_info(position, setInfos) {
+  const model_id = await get_next_model_id();
+  console.log(model_id);
+  // get_next_model_id(function(err, model_id) {
+  //   if (err) {
+  //     console.log("Error fetching next model ID:", err);
+  //     return;
+  //   }
     const user = `New user ${model_id}`;
     const created_time = new Date().toDateString();
     const user_comment = `Located at position: ${position}`;
@@ -88,7 +91,7 @@ function add_model_info(position, setInfos) {
       time: created_time,
       comment: user_comment
     });
-  });
+  // });
 }
 
 const Cube = ({ position, setInfos, model_id }) => {
@@ -135,7 +138,7 @@ const DemoPage = () => {
     comment: ""
   });
 
-  const addObject = () => {
+  async function addObject(){
     const objectTypes = [Cube, Ball, Cylinder, Donuts];
     const randomIndex = Math.floor(Math.random() * objectTypes.length);
     const ObjectType = objectTypes[randomIndex];
@@ -146,22 +149,14 @@ const DemoPage = () => {
       Math.random() * 10 - 5
     ];
 
-    get_next_model_id(function(err, model_id) {
-      if (err) {
-        console.log("Error fetching next model ID:", err);
-        return;
-      }
-      modelID = model_id;
-      const newModelID = model_id; // Ensure uniqueness
-      console.log("ID is:", newModelID);
-      const newObject = { Component: ObjectType, position: newPosition, model_id: newModelID };
-  
-      setObjects([...objects, newObject]); // Directly update the state
-      console.log('Updated Objects:', [...objects, newObject]);
-  
-      add_model_info(newPosition, setInfos);  
-    });
-      console.log("MODELID:",modelID);
+    const newModelID = await get_next_model_id(); // Ensure uniqueness
+    console.log("ID is:", newModelID);
+    const newObject = { Component: ObjectType, position: newPosition, model_id: newModelID };
+
+    setObjects([...objects, newObject]); // Directly update the state
+    console.log('Updated Objects:', [...objects, newObject]);
+
+    add_model_info(newPosition, setInfos);  
   };
 
   useEffect(() => {
