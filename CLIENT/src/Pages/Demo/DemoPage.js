@@ -30,7 +30,7 @@ function get_model_info(model_id, setInfos) {
 }
 
 function get_random_model_id(callback) {
-  $.getJSON("http://localhost:5000/modelInfo?queryOption=not-exsist")
+  $.getJSON("http://localhost:5000/modelInfo?queryOption=max-value")
     .done(function(json) {
       const model_id = parseInt(json[0].model_id);  //follow datatype that the first index is the json file
       callback(null, model_id); // Pass model_id to the callback
@@ -67,7 +67,7 @@ function add_model_info(position, setInfos) {
     };
     
     $.ajax(settings).done(function (response) {
-      console.log(response);
+      console.log(user);
     });
 
     setInfos({

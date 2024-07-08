@@ -65,3 +65,5 @@
 -- SELECT model_id FROM modelInfo WHERE model_id IS NOT NULL  ORDER BY RANDOM() LIMIT 1;
 
 -- SELECT * from modelInfo WHERE users is NOT NULL;
+
+-- SELECT MAX(model_id)+1 AS model_id FROM modelinfo 
