@@ -23,7 +23,11 @@ app.get('/modelInfo', async (req, res) => {
   let queryText;
   if (queryOption === 'not-exsist') {
     queryText = 'SELECT model_id FROM modelInfo WHERE model_id IS NOT NULL  ORDER BY RANDOM() LIMIT 1;'; // Get a random id with null body
-  } else {
+  } 
+  else if (queryOption === 'max-value') {
+    queryText = `SELECT MAX(model_id)+1 AS model_id FROM modelinfo`;
+  }
+  else {
     queryText = 'SELECT * FROM modelInfo'; // Default query: Select all
   }
 
