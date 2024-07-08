@@ -7,37 +7,49 @@ import "./DemoPage.css";
 
 const $ = require('jquery');
 
+// Cache for GLTF objects
+const gltfCache = new Map();
+
+function useCachedGLTF(path) {
+  const result = useGLTF(path);
+
+  // Store the result in the cache if not already cached
+  if (!gltfCache.has(path)) {
+    gltfCache.set(path, result);
+  }
+
+  return gltfCache.get(path);
+}
+
 function handleClick(position, setInfos, model_id) {
-  get_model_info(model_id,setInfos);
-};
+  get_model_info(model_id, setInfos);
+}
 
 function get_model_info(model_id, setInfos) {
-  fetch('http://localhost:5000/modelInfo') 
-      .then(response => response.json())
-      .then(data => {
-        //Get the mapped data with the model_id selected
-        const mappedData = data.find(item => item.model_id === model_id);
-        if (mappedData) { //if we can find the corresponding data
-          setInfos({
-            user: mappedData.users,
-            time: mappedData.created_time,
-            comment: mappedData.user_comment
-          }); 
-        }
+  fetch('http://localhost:5000/modelInfo')
+    .then(response => response.json())
+    .then(data => {
+      const mappedData = data.find(item => item.model_id === model_id);
+      if (mappedData) {
+        setInfos({
+          user: mappedData.users,
+          time: mappedData.created_time,
+          comment: mappedData.user_comment
+        });
       }
-      )
-      .catch(error => console.error('Error fetching data:', error, "from getting model information"));
+    })
+    .catch(error => console.error('Error fetching data:', error, "from getting model information"));
 }
 
 function get_random_model_id(callback) {
   $.getJSON("http://localhost:5000/modelInfo?queryOption=not-exsist")
     .done(function(json) {
-      const model_id = parseInt(json[0].model_id);  //follow datatype that the first index is the json file
-      callback(null, model_id); // Pass model_id to the callback
+      const model_id = parseInt(json[0].model_id);
+      callback(null, model_id);
     })
     .fail(function(jqxhr, textStatus, error) {
       var err = textStatus + ", " + error;
-      callback(err); // Pass error to the callback
+      callback(err);
     });
 }
 
@@ -49,7 +61,7 @@ function add_model_info(position, setInfos) {
     }
     const user = `New user ${model_id}`;
     const created_time = new Date().toDateString();
-    const user_comment =  `Located at position: ${position}`;
+    const user_comment = `Located at position: ${position}`;
 
     var settings = {
       "url": "http://localhost:5000/modelInfo",
@@ -74,28 +86,47 @@ function add_model_info(position, setInfos) {
       user: user,
       time: created_time,
       comment: user_comment
-    }); 
+    });
   });
 }
 
-
 const Cube = ({ position, setInfos, model_id }) => {
-  const { scene } = useGLTF('/Modal/cube.glb');
-  return <primitive object={scene} position={position} model_id={model_id} onClick={() => handleClick(position, setInfos, model_id)} />;
+  const { scene } = useCachedGLTF('/Modal/cube.glb');
+  const clonedScene = scene.clone();
+  useEffect(() => {
+    console.log(`Cube loaded at position: ${position} with model_id: ${model_id}`);
+  }, [clonedScene]);
+  return <primitive object={clonedScene} position={position} onClick={() => handleClick(position, setInfos, model_id)} />;
 }
 
-const Ball = ({ position, setInfos,model_id }) => {
-  const { scene } = useGLTF('/Modal/ball.glb');
-  return <primitive object={scene} position={position} model_id={model_id} onClick={() => handleClick(position, setInfos,model_id)}/>;
+const Ball = ({ position, setInfos, model_id }) => {
+  const { scene } = useCachedGLTF('/Modal/ball.glb');
+  const clonedScene = scene.clone();
+  useEffect(() => {
+    console.log(`Ball loaded at position: ${position} with model_id: ${model_id}`);
+  }, [clonedScene]);
+  return <primitive object={clonedScene} position={position} onClick={() => handleClick(position, setInfos, model_id)} />;
 }
 
-const Cylinder = ({ position, setInfos ,model_id}) => {
-  const { scene } = useGLTF('/Modal/cylinder.glb');
-  return <primitive object={scene} position={position} model_id={model_id} onClick={() => handleClick(position, setInfos,model_id)} />;
+const Cylinder = ({ position, setInfos, model_id }) => {
+  const { scene } = useCachedGLTF('/Modal/cylinder.glb');
+  const clonedScene = scene.clone();
+  useEffect(() => {
+    console.log(`Cylinder loaded at position: ${position} with model_id: ${model_id}`);
+  }, [clonedScene]);
+  return <primitive object={clonedScene} position={position} onClick={() => handleClick(position, setInfos, model_id)} />;
+}
+
+const Donuts = ({ position, setInfos, model_id }) => {
+  const { scene } = useCachedGLTF('/Modal/donuts.glb');
+  const clonedScene = scene.clone();
+  useEffect(() => {
+    console.log(`Donuts loaded at position: ${position} with model_id: ${model_id}`);
+  }, [clonedScene]);
+  return <primitive object={clonedScene} position={position} onClick={() => handleClick(position, setInfos, model_id)} />;
 }
 
 const DemoPage = () => {
-  const [model_id,setModelID] = useState(0);  //just for testing, delete after
   const [objects, setObjects] = useState([]);
   const [infos, setInfos] = useState({
     user: "",
@@ -103,39 +134,45 @@ const DemoPage = () => {
     comment: ""
   });
 
-  // useEffect(() => {    
-  //   get_model_info(model_id,setInfos);
-  // }, [model_id]);
-
   const addObject = () => {
-    setModelID(model_id+1);
-    const objectTypes = [Cube, Ball, Cylinder];
+    const objectTypes = [Cube, Ball, Cylinder, Donuts];
     const randomIndex = Math.floor(Math.random() * objectTypes.length);
     const ObjectType = objectTypes[randomIndex];
 
     const newPosition = [
-      Math.random() * 10 - 5, 
-      Math.random() * 10 - 5, 
-      Math.random() * 10 - 5  
+      Math.random() * 10 - 5,
+      Math.random() * 10 - 5,
+      Math.random() * 10 - 5
     ];
 
-    setObjects([...objects, { Component: ObjectType, position: newPosition, model_id: model_id }]);
-    //Update the property of the model to the database and the information blocker
-    if (true){
-      add_model_info(newPosition,setInfos);
-    }
+    const newModelID = objects.length + 1; // Ensure uniqueness
+
+    const newObject = { Component: ObjectType, position: newPosition, model_id: newModelID };
+
+    setObjects([...objects, newObject]); // Directly update the state
+    console.log('Updated Objects:', [...objects, newObject]);
+
+    add_model_info(newPosition, setInfos);
   };
+
+  useEffect(() => {
+    console.log('Rendered Objects:', objects);
+  }, [objects]);
 
   return (
     <div className='demo-page'>
       <button onClick={addObject}>Add Object</button>
-      <Canvas style={{ width: '100vw', height: '100vh' }}>
-        <ambientLight />
+      <Canvas
+        camera={{ position: [0, 0, 15], fov: 1000000 }}
+        style={{ width: '100vw', height: '100vh' }}
+      >
+        <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} />
+        <pointLight position={[-10, -10, -10]} />
 
         {objects.map((obj, index) => {
-          const { Component, position } = obj;
-          return <Component key={index} position={position} setInfos={setInfos} model_id = {model_id}/>;
+          const { Component, position, model_id } = obj;
+          return <Component key={`object-${index}-${model_id}`} position={position} setInfos={setInfos} model_id={model_id} />;
         })}
         <OrbitControls />
       </Canvas>
