@@ -6,21 +6,16 @@ import { useGLTF } from "@react-three/drei";
 import "./DemoPage.css";
 
 const $ = require('jquery');
+
 function handleClick(position, setInfos, model_id) {
-  console.log(model_id);
   get_model_info(model_id,setInfos);
-  // setInfos({
-  //   user: "jimmy",
-  //   time: new Date().toLocaleTimeString(), // Example of dynamic time
-  //   comment: `Clicked at position: ${position}`
-  // });
 };
 
 function get_model_info(model_id, setInfos) {
-  fetch('http://localhost:5000/modelInfo') // Adjust the URL if needed
+  fetch('http://localhost:5000/modelInfo') 
       .then(response => response.json())
       .then(data => {
-        // Assuming data is an array of objects, you might need to adjust based on actual data structure
+        //Get the mapped data with the model_id selected
         const mappedData = data.find(item => item.model_id === model_id);
         if (mappedData) { //if we can find the corresponding data
           setInfos({
@@ -31,34 +26,55 @@ function get_model_info(model_id, setInfos) {
         }
       }
       )
-      .catch(error => console.error('Error fetching data:', error));
+      .catch(error => console.error('Error fetching data:', error, "from getting model information"));
 }
 
-function add_model_info() {
-  const newData = {
-    "model_id": 10,
-    "users": "1111",
-    "created_time": "2000-01-01",
-    "user_comment": "jini taimei"
-  };
+function get_random_model_id(callback) {
+  $.getJSON("http://localhost:5000/modelInfo?queryOption=not-exsist")
+    .done(function(json) {
+      const model_id = parseInt(json[0].model_id);  //follow datatype that the first index is the json file
+      callback(null, model_id); // Pass model_id to the callback
+    })
+    .fail(function(jqxhr, textStatus, error) {
+      var err = textStatus + ", " + error;
+      callback(err); // Pass error to the callback
+    });
+}
 
-  var settings = {
-    "url": "http://localhost:5000/modelInfo",
-    "method": "POST",
-    "timeout": 0,
-    "headers": {
-      "Content-Type": "application/json"
-    },
-    "data": JSON.stringify({
-      "model_id": 3,
-      "users": "5ege",
-      "created_time": "2000-01-01",
-      "user_comment": "jini taimei"
-    }),
-  };
-  
-  $.ajax(settings).done(function (response) {
-    console.log(response);
+function add_model_info(position, setInfos) {
+  get_random_model_id(function(err, model_id) {
+    if (err) {
+      console.log("Error fetching random model ID:", err);
+      return;
+    }
+    const user = `New user ${model_id}`;
+    const created_time = new Date().toDateString();
+    const user_comment =  `Located at position: ${position}`;
+
+    var settings = {
+      "url": "http://localhost:5000/modelInfo",
+      "method": "POST",
+      "timeout": 0,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "data": JSON.stringify({
+        "model_id": model_id,
+        "users": user,
+        "created_time": created_time,
+        "user_comment": user_comment
+      }),
+    };
+    
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+    });
+
+    setInfos({
+      user: user,
+      time: created_time,
+      comment: user_comment
+    }); 
   });
 }
 
@@ -87,9 +103,9 @@ const DemoPage = () => {
     comment: ""
   });
 
-  useEffect(() => {
-    get_model_info(model_id,setInfos);
-  }, [model_id]);
+  // useEffect(() => {    
+  //   get_model_info(model_id,setInfos);
+  // }, [model_id]);
 
   const addObject = () => {
     setModelID(model_id+1);
@@ -105,14 +121,9 @@ const DemoPage = () => {
 
     setObjects([...objects, { Component: ObjectType, position: newPosition, model_id: model_id }]);
     //Update the property of the model to the database and the information blocker
-    if (false){
-      add_model_info();
+    if (true){
+      add_model_info(newPosition,setInfos);
     }
-    // setInfos({
-    //   user: "new_user",
-    //   time: new Date().toLocaleTimeString(), // Example of dynamic time
-    //   comment: `Clicked at position: ${newPosition}`
-    // });
   };
 
   return (

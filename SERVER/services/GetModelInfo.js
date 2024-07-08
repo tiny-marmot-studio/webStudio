@@ -17,9 +17,19 @@ const pool = new Pool({
 
 // API endpoint to fetch all data from modelInfo
 app.get('/modelInfo', async (req, res) => {
+  // Set differnt options of getting data with constraint
+  const queryOption = req.query.queryOption; // Get queryOption from query parameters
+
+  let queryText;
+  if (queryOption === 'not-exsist') {
+    queryText = 'SELECT model_id FROM modelInfo WHERE model_id IS NOT NULL  ORDER BY RANDOM() LIMIT 1;'; // Get a random id with null body
+  } else {
+    queryText = 'SELECT * FROM modelInfo'; // Default query: Select all
+  }
+
   try {
     const client = await pool.connect();
-    const result = await client.query('SELECT * FROM modelInfo'); // Fetch all data from table1
+    const result = await client.query(queryText); // Fetch all data from table1
     client.release(); // Release the client back to the pool
     res.json(result.rows); // Send data as JSON response
   } catch (err) {
@@ -39,9 +49,12 @@ app.post('/modelInfo', async (req, res) => {
         const client = await pool.connect();
         // SQL update text
         const queryText = `
-            INSERT INTO modelInfo (model_id, users, created_time, user_comment)
-            VALUES ($1, $2, $3, $4)
-            RETURNING *
+          INSERT INTO modelInfo (model_id, users, created_time, user_comment)
+          VALUES ($1,$2,$3,$4)
+          ON CONFLICT (model_id) DO UPDATE
+          SET users = EXCLUDED.users,
+              created_time = EXCLUDED.created_time,
+              user_comment = EXCLUDED.user_comment;
         `;
         const values = [model_id, users, created_time, user_comment];
         const result = await client.query(queryText, values);
