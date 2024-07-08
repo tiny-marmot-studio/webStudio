@@ -56,13 +56,8 @@ function get_next_model_id() {
 }
 
 async function add_model_info(position, setInfos) {
-  const model_id = await get_next_model_id();
-  console.log(model_id);
-  // get_next_model_id(function(err, model_id) {
-  //   if (err) {
-  //     console.log("Error fetching next model ID:", err);
-  //     return;
-  //   }
+    const model_id = await get_next_model_id();
+    console.log(model_id);
     const user = `New user ${model_id}`;
     const created_time = new Date().toDateString();
     const user_comment = `Located at position: ${position}`;
@@ -91,7 +86,6 @@ async function add_model_info(position, setInfos) {
       time: created_time,
       comment: user_comment
     });
-  // });
 }
 
 const Cube = ({ position, setInfos, model_id }) => {

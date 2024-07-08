@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const session = require("express-session");
 const authenticationRouter = require('./Routes/AuthenticationRouter'); 
+const modelInfoRouter = require('./Routes/ModelInfoRouter'); 
+const bodyParser = require('body-parser');
 const cors = require("cors");
 const pool = require("./db");
 const {sessionSync, sessionMatch, CustomSessionStore} = require('./services/session/SessionManagement');
@@ -25,6 +27,9 @@ app.use(session({
 }));
 
 app.use('/Authentication', authenticationRouter);
+// Middleware to parse JSON bodies
+app.use(bodyParser.json());
+app.use('/modelInfo',modelInfoRouter)
 app.use(sessionSync);
 app.use(sessionMatch);
 app.use('/Test',(req, res)=>{console.log("test"); res.send("succeed")});
