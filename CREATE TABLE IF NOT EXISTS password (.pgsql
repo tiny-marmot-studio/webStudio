@@ -35,3 +35,33 @@
 -- UPDATE logininfo SET pid = 1 WHERE uid = 4;
 -- UPDATE logininfo SET pid = 2 WHERE uid = 5;
 -- UPDATE logininfo SET pid = 3 WHERE uid = 6;
+
+
+
+-- DROP TABLE modelinfo;
+
+-- CREATE TABLE modelInfo(
+--     model_id SERIAL PRIMARY KEY , 
+--     users VARCHAR(255),
+--     created_time DATE,
+--     user_comment VARCHAR(1000)
+-- );
+
+-- INSERT INTO modelInfo (model_id, users, created_time, user_comment)
+-- VALUES (1, 'jll', '2003-08-08', 'new comment');
+
+-- INSERT INTO modelInfo (model_id, users, created_time, user_comment)
+-- VALUES (2, 'wei', '2002-01-01', 'wei"s comment');
+
+-- INSERT INTO modelInfo (model_id, users, created_time, user_comment)
+-- VALUES (2, 'gege', '2002-01-01', 'wei"s comment')
+-- ON CONFLICT (model_id) DO UPDATE
+-- SET users = EXCLUDED.users,
+--     created_time = EXCLUDED.created_time,
+--     user_comment = EXCLUDED.user_comment;
+
+-- INSERT INTO modelInfo (model_id) VALUES (generate_series(3, 1000));
+
+-- SELECT model_id FROM modelInfo WHERE model_id IS NOT NULL  ORDER BY RANDOM() LIMIT 1;
+
+-- SELECT * from modelInfo WHERE users is NOT NULL;
